@@ -14,7 +14,7 @@ Created by Maxim Zubarev on 2019-08-23.
  */
 object Api {
     private const val BASE_URL: String = "https://api.openweathermap.org/"
-    private const val TOKEN: String = "b6907d289e10d714a6e88b30761fae22"
+    private const val TOKEN: String = "cc33d8f881b375af6cca61900288924a"
 
     fun create(): ApiEndpoint {
         val interceptor = HttpLoggingInterceptor()
