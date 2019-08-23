@@ -24,8 +24,8 @@ object Api {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val url: HttpUrl = chain.request().url
                     .newBuilder()
-                    .addQueryParameter("appid", TOKEN)
                     .addQueryParameter("units", "metric")
+                    .addQueryParameter("appid", TOKEN)
                     .build()
                 val request = chain.request().newBuilder().url(url).build()
                 return chain.proceed(request)
