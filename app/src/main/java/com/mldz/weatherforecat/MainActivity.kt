@@ -7,6 +7,8 @@ import com.mldz.weatherforecat.mvp.model.MainActivityModel
 import com.mldz.weatherforecat.mvp.presenter.MainActivityPresenter
 import com.mldz.weatherforecat.mvp.view.MainActivityView
 import com.mldz.weatherforecat.utils.model.Forecast
+import com.mldz.weatherforecat.utils.model.ForecastDays
+import com.mldz.weatherforecat.utils.model.FullForecast
 import com.squareup.picasso.Callback
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
@@ -35,7 +37,12 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         presenter?.onCreate(location)
     }
 
-    override fun setData(forecast: Forecast) {
+    override fun setData(fullForecast: FullForecast) {
+        setDataNow(fullForecast.forecast)
+        setDataDays(fullForecast.forecastDays)
+    }
+
+    private fun setDataNow(forecast: Forecast) {
         city.text = forecast.name
         temp.text = "${forecast.main.temp.toInt()}°"
         Picasso.get().load(ICON + forecast.weather[0].icon + "@2x.png").into(image)
@@ -56,6 +63,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         val format = SimpleDateFormat("HH:mm", Locale.ENGLISH)
         sunrise.text = "Sunrise: ${format.format(sunriseDate)}"
         sunset.text = "Sunset: ${format.format(sunsetDate)}"
+    }
+
+    private fun setDataDays(forecast: ForecastDays) {
+
     }
 
     override fun showProgressBar() {
