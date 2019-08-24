@@ -1,5 +1,7 @@
 package com.mldz.weatherforecat.utils.model
 
+import kotlin.collections.List
+
 data class Forecast(
     val clouds: Clouds,
     val main: Main,
