@@ -13,6 +13,6 @@ interface ApiEndpoint {
     @GET("data/2.5/weather")
     fun getWeatherNow(@Query("q") q: String): Observable<Forecast>
 
-    @GET("data/2.5/forecast?")
+    @GET("data/2.5/forecast")
     fun getWeatherDays(@Query("q") q: String): Observable<Forecast>
 }
