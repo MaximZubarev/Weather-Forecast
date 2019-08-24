@@ -1,6 +1,7 @@
 package com.mldz.weatherforecat.utils
 
 import com.mldz.weatherforecat.utils.model.Forecast
+import com.mldz.weatherforecat.utils.model.ForecastDays
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,5 @@ interface ApiEndpoint {
     fun getWeatherNow(@Query("q") q: String): Observable<Forecast>
 
     @GET("data/2.5/forecast")
-    fun getWeatherDays(@Query("q") q: String): Observable<Forecast>
+    fun getWeatherDays(@Query("q") q: String): Observable<ForecastDays>
 }
