@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DescpTextView">
+        <item name="android:textSize">@dimen/descp_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="DescpTextViewMarginTop" parent="DescpTextView">
+        <item name="android:layout_marginTop">@dimen/margin20</item>
+    </style>
+
+    <style name="DescpTextViewMarginStart" parent="DescpTextView">
+        <item name="android:layout_marginStart">@dimen/margin40</item>
+    </style>
+
 </resources>
