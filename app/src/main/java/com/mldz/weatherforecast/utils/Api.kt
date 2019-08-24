@@ -1,4 +1,4 @@
-package com.mldz.weatherforecat.utils
+package com.mldz.weatherforecast.utils
 
 import okhttp3.*
 import retrofit2.Retrofit

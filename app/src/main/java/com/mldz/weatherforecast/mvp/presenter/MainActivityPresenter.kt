@@ -1,19 +1,11 @@
-package com.mldz.weatherforecat.mvp.presenter
+package com.mldz.weatherforecast.mvp.presenter
 
 import android.util.Log
-import com.mldz.weatherforecat.mvp.model.MainActivityModel
-import com.mldz.weatherforecat.mvp.view.MainActivityView
-import com.mldz.weatherforecat.utils.model.Forecast
-import com.mldz.weatherforecat.utils.model.ForecastDays
-import com.mldz.weatherforecat.utils.model.FullForecast
-import io.reactivex.Observable
+import com.mldz.weatherforecast.mvp.model.MainActivityModel
+import com.mldz.weatherforecast.mvp.view.MainActivityView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import io.reactivex.functions.BiFunction
 
 
 /**

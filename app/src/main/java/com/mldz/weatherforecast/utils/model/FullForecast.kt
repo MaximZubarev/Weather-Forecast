@@ -1,4 +1,4 @@
-package com.mldz.weatherforecat.utils.model
+package com.mldz.weatherforecast.utils.model
 
 /**
 Created by Maxim Zubarev on 2019-08-24.

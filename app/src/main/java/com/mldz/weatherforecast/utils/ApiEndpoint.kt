@@ -1,7 +1,7 @@
-package com.mldz.weatherforecat.utils
+package com.mldz.weatherforecast.utils
 
-import com.mldz.weatherforecat.utils.model.Forecast
-import com.mldz.weatherforecat.utils.model.ForecastDays
+import com.mldz.weatherforecast.utils.model.Forecast
+import com.mldz.weatherforecast.utils.model.ForecastDays
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

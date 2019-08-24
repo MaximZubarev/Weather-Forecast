@@ -1,11 +1,9 @@
-package com.mldz.weatherforecat.mvp.model
+package com.mldz.weatherforecast.mvp.model
 
-import android.os.Build
-import android.support.annotation.RequiresApi
-import com.mldz.weatherforecat.utils.Api
-import com.mldz.weatherforecat.utils.model.Forecast
-import com.mldz.weatherforecat.utils.model.ForecastDays
-import com.mldz.weatherforecat.utils.model.FullForecast
+import com.mldz.weatherforecast.utils.Api
+import com.mldz.weatherforecast.utils.model.Forecast
+import com.mldz.weatherforecast.utils.model.ForecastDays
+import com.mldz.weatherforecast.utils.model.FullForecast
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 

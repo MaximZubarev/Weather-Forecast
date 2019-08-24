@@ -1,21 +1,17 @@
-package com.mldz.weatherforecat
+package com.mldz.weatherforecast
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mldz.weatherforecat.mvp.model.MainActivityModel
-import com.mldz.weatherforecat.mvp.presenter.MainActivityPresenter
-import com.mldz.weatherforecat.mvp.view.MainActivityView
-import com.mldz.weatherforecat.utils.model.Forecast
-import com.mldz.weatherforecat.utils.model.ForecastDays
-import com.mldz.weatherforecat.utils.model.FullForecast
-import com.squareup.picasso.Callback
-import com.squareup.picasso.MemoryPolicy
+import com.mldz.weatherforecast.mvp.model.MainActivityModel
+import com.mldz.weatherforecast.mvp.presenter.MainActivityPresenter
+import com.mldz.weatherforecast.mvp.view.MainActivityView
+import com.mldz.weatherforecast.utils.model.Forecast
+import com.mldz.weatherforecast.utils.model.ForecastDays
+import com.mldz.weatherforecast.utils.model.FullForecast
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 

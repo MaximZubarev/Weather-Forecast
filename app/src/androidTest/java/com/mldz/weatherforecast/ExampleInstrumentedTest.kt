@@ -1,4 +1,4 @@
-package com.mldz.weatherforecat
+package com.mldz.weatherforecast
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
