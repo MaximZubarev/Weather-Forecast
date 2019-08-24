@@ -1,8 +1,8 @@
 package com.mldz.weatherforecast
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.presenter.MainActivityPresenter
 import com.mldz.weatherforecast.mvp.view.MainActivityView
