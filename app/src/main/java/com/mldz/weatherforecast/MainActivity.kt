@@ -1,6 +1,7 @@
 package com.mldz.weatherforecast
 
 import android.content.res.Resources
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -63,7 +64,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     private fun setDataNow(forecast: Forecast) {
         city.text = forecast.name
         temp.text = "${forecast.main.temp.toInt()}°"
-        Picasso.get().load(ICON + forecast.weather[0].icon + "@2x.png").into(image)
+
+        val customFont = Typeface.createFromAsset(assets, "fonts/weather.ttf")
+        image.typeface = customFont
+        image.text = getIcon(forecast.weather[0].id, forecast.sys.sunrise * 1000, forecast.sys.sunset * 1000, this)
 
         maxTemp.text = "Max temp: ${forecast.main.temp_max.toInt()}°"
         minTemp.text = "Min temp: ${forecast.main.temp_min.toInt()}°"
