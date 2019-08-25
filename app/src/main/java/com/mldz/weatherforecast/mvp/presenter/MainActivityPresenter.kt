@@ -1,11 +1,12 @@
-package com.mldz.weatherforecat.mvp.presenter
+package com.mldz.weatherforecast.mvp.presenter
 
 import android.util.Log
-import com.mldz.weatherforecat.mvp.model.MainActivityModel
-import com.mldz.weatherforecat.mvp.view.MainActivityView
+import com.mldz.weatherforecast.mvp.model.MainActivityModel
+import com.mldz.weatherforecast.mvp.view.MainActivityView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+
 
 /**
 Created by Maxim Zubarev on 2019-08-23.
@@ -18,19 +19,20 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
     }
 
     fun onCreate(location: String) {
-        disposables.add(model.getWeatherNow(location)
+        disposables.add(model.get(location)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    view?.setData(it)
-                }, {
-                    e -> Log.d("logs", "onError: ${e.message}")
-                    view?.enableProgressBar()
-                }, {
-                    view?.enableProgressBar()
-                }
-            ))
+            {
+                view?.setData(it)
+                print(it.forecast.clouds.all)
+            }, {
+                e -> Log.d("logs", "onError: ${e.message}")
+                view?.enableProgressBar()
+            }, {
+                view?.enableProgressBar()
+            }
+        ))
     }
 
     fun unBindView() {

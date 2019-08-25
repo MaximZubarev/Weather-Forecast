@@ -1,4 +1,4 @@
-package com.mldz.weatherforecat.utils.model
+package com.mldz.weatherforecast.utils.model
 
 data class Sys(
     val sunrise: Long,

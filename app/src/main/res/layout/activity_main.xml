@@ -15,12 +15,13 @@
             android:layout_height="wrap_content"/>
 
     <RelativeLayout
+            android:id="@+id/forecastNow"
             android:orientation="vertical"
             android:background="@color/colorPrimary"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="wrap_content">
 
         <TextView
                 android:id="@+id/city"
@@ -71,7 +72,6 @@
                 android:id="@+id/maxTemp"
                 android:layout_below="@id/description"
                 style="@style/DescpTextViewMarginTop"
-                android:text="1"
         />
 
         <TextView
@@ -79,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/minTemp"
                 android:layout_below="@id/description"
-                android:text="2"
                 android:layout_alignStart="@id/description"
                 style="@style/DescpTextViewMarginTop"
         />
@@ -89,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/sunrise"
                 android:layout_below="@id/maxTemp"
-                android:text="3"
                 style="@style/DescpTextViewMarginTop"
         />
 
@@ -100,8 +98,6 @@
                 android:layout_below="@id/minTemp"
                 android:layout_alignStart="@id/minTemp"
                 style="@style/DescpTextViewMarginTop"
-                android:text="4"
-
         />
 
         <TextView
@@ -139,5 +135,11 @@
         />
 
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_below="@id/forecastNow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 </RelativeLayout>

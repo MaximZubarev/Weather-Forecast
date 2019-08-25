@@ -1,27 +1,40 @@
-package com.mldz.weatherforecat
+package com.mldz.weatherforecast
 
-import android.support.v7.app.AppCompatActivity
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
-import com.mldz.weatherforecat.mvp.model.MainActivityModel
-import com.mldz.weatherforecat.mvp.presenter.MainActivityPresenter
-import com.mldz.weatherforecat.mvp.view.MainActivityView
-import com.mldz.weatherforecat.utils.model.Forecast
-import com.squareup.picasso.Callback
-import com.squareup.picasso.MemoryPolicy
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mldz.weatherforecast.adapter.ForecastAdapter
+import com.mldz.weatherforecast.mvp.model.MainActivityModel
+import com.mldz.weatherforecast.mvp.presenter.MainActivityPresenter
+import com.mldz.weatherforecast.mvp.view.MainActivityView
+import com.mldz.weatherforecast.utils.model.Forecast
+import com.mldz.weatherforecast.utils.model.ForecastDays
+import com.mldz.weatherforecast.utils.model.FullForecast
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.RelativeLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+
+
+
+
 
 class MainActivity : AppCompatActivity(), MainActivityView {
     private var presenter: MainActivityPresenter? = null
 
     private val location: String = "Moscow,ru"
-    private val ICON: String = "http://openweathermap.org/img/wn/"
+
+    companion object {
+        val ICON: String = "http://openweathermap.org/img/wn/"
+    }
+
+    private var adapter: ForecastAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +43,24 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         supportActionBar?.elevation = 0.0f
         showProgressBar()
 
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
+
+        val height: Int = Resources.getSystem().displayMetrics.heightPixels * 2/3
+        val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height)
+        forecastNow.layoutParams = lp
+
         presenter = MainActivityPresenter(MainActivityModel(), CompositeDisposable())
         presenter?.bindView(this)
         presenter?.onCreate(location)
     }
 
-    override fun setData(forecast: Forecast) {
+    override fun setData(fullForecast: FullForecast) {
+        setDataNow(fullForecast.forecast)
+        setDataDays(fullForecast.forecastDays)
+    }
+
+    private fun setDataNow(forecast: Forecast) {
         city.text = forecast.name
         temp.text = "${forecast.main.temp.toInt()}°"
         Picasso.get().load(ICON + forecast.weather[0].icon + "@2x.png").into(image)
@@ -56,6 +81,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         val format = SimpleDateFormat("HH:mm", Locale.ENGLISH)
         sunrise.text = "Sunrise: ${format.format(sunriseDate)}"
         sunset.text = "Sunset: ${format.format(sunsetDate)}"
+    }
+
+    private fun setDataDays(forecast: ForecastDays) {
+        adapter = ForecastAdapter(forecast.list)
+        recyclerView.adapter = adapter
     }
 
     override fun showProgressBar() {

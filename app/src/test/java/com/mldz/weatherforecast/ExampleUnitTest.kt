@@ -1,4 +1,4 @@
-package com.mldz.weatherforecat
+package com.mldz.weatherforecast
 
 import org.junit.Test
 
