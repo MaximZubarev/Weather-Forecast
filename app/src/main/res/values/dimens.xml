@@ -2,5 +2,6 @@
 <resources>
     <dimen name="descp_size">15sp</dimen>
     <dimen name="margin20">20dp</dimen>
+    <dimen name="margin30">30dp</dimen>
     <dimen name="margin40">40dp</dimen>
 </resources>

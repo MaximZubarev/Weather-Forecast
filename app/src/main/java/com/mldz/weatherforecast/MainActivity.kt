@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         description.text = forecast.weather[0].description.capitalize()
 
-        pressure.text = "Pressure: ${forecast.main.pressure}"
-        humidity.text = "Humidity: ${forecast.main.humidity}"
+        pressure.text = "Pressure: ${forecast.main.pressure}hPa"
+        humidity.text = "Humidity: ${forecast.main.humidity}%"
 
         wind.text = "Wind speed: ${forecast.wind.speed}m/s"
-        cloud.text = "Clouds: ${forecast.clouds.all}"
+        cloud.text = "Cloudiness: ${forecast.clouds.all}%"
 
         val sunriseDate = Date(forecast.sys.sunrise * 1000)
         val sunsetDate = Date(forecast.sys.sunset * 1000)
