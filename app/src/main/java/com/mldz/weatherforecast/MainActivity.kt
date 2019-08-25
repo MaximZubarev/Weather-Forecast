@@ -1,8 +1,12 @@
 package com.mldz.weatherforecast
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mldz.weatherforecast.adapter.ForecastAdapter
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.presenter.MainActivityPresenter
 import com.mldz.weatherforecast.mvp.view.MainActivityView
@@ -14,12 +18,23 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.RelativeLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+
+
+
+
 
 class MainActivity : AppCompatActivity(), MainActivityView {
     private var presenter: MainActivityPresenter? = null
 
     private val location: String = "Moscow,ru"
-    private val ICON: String = "http://openweathermap.org/img/wn/"
+
+    companion object {
+        val ICON: String = "http://openweathermap.org/img/wn/"
+    }
+
+    private var adapter: ForecastAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +42,13 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         supportActionBar?.elevation = 0.0f
         showProgressBar()
+
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
+
+        val height: Int = Resources.getSystem().displayMetrics.heightPixels * 2/3
+        val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height)
+        forecastNow.layoutParams = lp
 
         presenter = MainActivityPresenter(MainActivityModel(), CompositeDisposable())
         presenter?.bindView(this)
@@ -62,7 +84,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     private fun setDataDays(forecast: ForecastDays) {
-
+        adapter = ForecastAdapter(forecast.list)
+        recyclerView.adapter = adapter
     }
 
     override fun showProgressBar() {
