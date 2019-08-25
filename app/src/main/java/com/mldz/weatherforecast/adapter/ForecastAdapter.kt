@@ -44,7 +44,7 @@ class ForecastAdapter(private val items: List<ForecastList>):
         fun bind(list: ForecastList) {
             val date = Date(list.dt * 1000)
             val format = SimpleDateFormat("E\nHH:mm", Locale.ENGLISH)
-            dateTV?.text = format.format(date)
+            dateTV?.text = format.format(date).toUpperCase()
 
             tempTV?.text = "${list.main.temp.toInt()}°"
 
