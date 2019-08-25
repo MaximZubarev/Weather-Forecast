@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         maxTemp.text = "Max temp: ${forecast.main.temp_max.toInt()}°"
         minTemp.text = "Min temp: ${forecast.main.temp_min.toInt()}°"
 
-        description.text = forecast.weather[0].main
+        description.text = forecast.weather[0].description.capitalize()
 
         pressure.text = "Pressure: ${forecast.main.pressure}"
         humidity.text = "Humidity: ${forecast.main.humidity}"
