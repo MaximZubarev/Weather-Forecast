@@ -44,7 +44,12 @@ public class ChangeCity extends AppCompatActivity implements ChangeCityView {
             int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
             RadioButton myRadioButton = findViewById(checkedRadioButtonId);
             Intent intent = new Intent();
-            intent.putExtra("city", myRadioButton.getText());
+            String value;
+            if (myRadioButton != null)
+                value = (String) myRadioButton.getText();
+            else
+                value = null;
+            intent.putExtra("city", value);
             setResult(RESULT_OK, intent);
             finish();
         }

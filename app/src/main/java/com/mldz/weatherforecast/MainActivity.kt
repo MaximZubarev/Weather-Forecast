@@ -113,7 +113,8 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val city: String? = data?.getStringExtra("city")
-        Log.d("logs", city)
+        if (city != null)
+            presenter?.onCreate(city)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
