@@ -1,5 +1,7 @@
 package com.mldz.weatherforecast.mvp.model
 
+import android.content.Context
+import com.mldz.weatherforecast.SavePref
 import com.mldz.weatherforecast.utils.Api
 import com.mldz.weatherforecast.utils.model.Forecast
 import com.mldz.weatherforecast.utils.model.ForecastDays
@@ -11,7 +13,7 @@ import io.reactivex.functions.BiFunction
 Created by Maxim Zubarev on 2019-08-23.
  */
 
-class MainActivityModel {
+class MainActivityModel(val context: Context) {
     private fun getWeatherNow(location: String): Observable<Forecast> {
         return Api.create().getWeatherNow(location)
     }
@@ -21,10 +23,20 @@ class MainActivityModel {
     }
 
     fun get(location: String): Observable<FullForecast> {
+        var value = ""
+        if (getCity() == null)
+            value = location
+        else
+            value = getCity()
+
         return Observable.zip(
-            getWeatherNow(location),
-            getWeatherDays(location),
+            getWeatherNow(value),
+            getWeatherDays(value),
             BiFunction<Forecast, ForecastDays, FullForecast> { t1, t2 -> FullForecast(t1, t2) }
         )
+    }
+
+    private fun getCity(): String {
+        return SavePref.getInstance(context).city
     }
 }
