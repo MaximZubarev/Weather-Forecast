@@ -9,4 +9,7 @@
     <string name="weather_snowy">&#xf01b;</string>
     <string name="weather_thunder">&#xf01e;</string>
     <string name="weather_drizzle">&#xf01c;</string>
+
+    <string name="change_city">Change city</string>
+    <string name="ok">OK</string>
 </resources>
