@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:layout_marginStart="16dp"
+              android:layout_marginEnd="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <RadioGroup
             android:id="@+id/radioGroup"
+            android:layout_marginTop="@dimen/margin20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
     </RadioGroup>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
             android:id="@+id/ok"
             android:text="@string/ok"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
