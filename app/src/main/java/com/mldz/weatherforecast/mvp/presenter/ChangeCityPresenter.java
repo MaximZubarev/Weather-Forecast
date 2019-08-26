@@ -55,6 +55,10 @@ public class ChangeCityPresenter {
                 }));
     }
 
+    public void saveCity(String name) {
+        model.saveCity(name);
+    }
+
     public void unBind() {
         view = null;
     }

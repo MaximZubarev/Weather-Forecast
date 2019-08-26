@@ -31,10 +31,6 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     private val location: String = "Moscow,ru"
 
-    companion object {
-        val ICON: String = "http://openweathermap.org/img/wn/"
-    }
-
     private var adapter: ForecastAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +47,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height)
         forecastNow.layoutParams = lp
 
-        presenter = MainActivityPresenter(MainActivityModel(), CompositeDisposable())
+        presenter = MainActivityPresenter(MainActivityModel(this), CompositeDisposable())
         presenter?.bindView(this)
         presenter?.onCreate(location)
     }

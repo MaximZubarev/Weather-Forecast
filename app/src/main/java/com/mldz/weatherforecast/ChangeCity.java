@@ -49,6 +49,7 @@ public class ChangeCity extends AppCompatActivity implements ChangeCityView {
                 value = (String) myRadioButton.getText();
             else
                 value = null;
+            presenter.saveCity(value);
             intent.putExtra("city", value);
             setResult(RESULT_OK, intent);
             finish();

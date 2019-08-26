@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import com.mldz.weatherforecast.SavePref;
 import com.mldz.weatherforecast.db.DbHelper;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -64,6 +65,10 @@ public class ChangeCityModel {
 
     public Observable<List<String>> getCities() {
         return makeObservable(getData());
+    }
+
+    public void saveCity(String name) {
+        SavePref.getInstance(context).saveCity(name);
     }
 
     public long addCity(String name) {
