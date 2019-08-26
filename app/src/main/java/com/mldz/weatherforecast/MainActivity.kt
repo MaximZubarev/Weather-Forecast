@@ -1,8 +1,12 @@
 package com.mldz.weatherforecast
 
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -21,10 +25,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.DividerItemDecoration
-
-
-
-
 
 class MainActivity : AppCompatActivity(), MainActivityView {
     private var presenter: MainActivityPresenter? = null
@@ -98,6 +98,27 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun enableProgressBar() {
         progressBar.visibility = View.GONE
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.change_city -> {
+                val intent = Intent(this, ChangeCity::class.java)
+                startActivityForResult(intent, 1)
+                return true
+            }
+        }
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val city: String? = data?.getStringExtra("city")
+        Log.d("logs", city)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onDestroy() {
