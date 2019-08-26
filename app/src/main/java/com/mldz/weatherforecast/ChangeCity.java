@@ -57,12 +57,10 @@ public class ChangeCity extends AppCompatActivity implements ChangeCityView {
 
     @Override
     public void setData(List<String> list) {
-        if (list.size() > 0) {
-            for (String s : list) {
-                RadioButton button = new RadioButton(this);
-                button.setText(s);
-                radioGroup.addView(button);
-            }
+        for (String s : list) {
+            RadioButton button = new RadioButton(this);
+            button.setText(s);
+            radioGroup.addView(button);
         }
     }
 

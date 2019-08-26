@@ -1,9 +1,16 @@
 package com.mldz.weatherforecast.mvp.presenter;
 
+import android.util.Log;
 import com.mldz.weatherforecast.ChangeCity;
 import com.mldz.weatherforecast.mvp.model.ChangeCityModel;
 import com.mldz.weatherforecast.mvp.view.ChangeCityView;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
 
 /**
  * Created by Maxim Zubarev on 2019-08-26.
@@ -23,7 +30,29 @@ public class ChangeCityPresenter {
     }
 
     public void onCreate() {
-        view.setData(model.getData());
+        disposables.add(model.getCities()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<List<String>>() {
+                    @Override
+                    public void onNext(List<String> strings) {
+                        if (view != null) {
+                            if (strings.size() > 0) {
+                                view.setData(strings);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("logs", e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
     }
 
     public void unBind() {
