@@ -30,7 +30,7 @@ import com.mldz.weatherforecast.utils.getIcon
 class MainActivity : AppCompatActivity(), MainActivityView {
     private var presenter: MainActivityPresenter? = null
 
-    private val location: String = "Moscow,ru"
+    private val location: String = "Moscow"
 
     private var adapter: ForecastAdapter? = null
 
