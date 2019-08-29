@@ -4,6 +4,8 @@ import android.util.Log
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.view.MainActivityView
 import com.mldz.weatherforecast.utils.hasInternetConnection
+import com.mldz.weatherforecast.utils.model.Forecast
+import com.mldz.weatherforecast.utils.model.FullForecast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -30,6 +32,7 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                             .subscribe(
                                 { forecast ->
                                     view?.setData(forecast)
+                                    model.saveToBd(forecast, forecast.forecast.name)
                                 }, {
                                     e -> Log.d("logs", "onError: ${e.message}")
                                     view?.enableProgressBar()
@@ -38,7 +41,9 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                                 }
                             ))
                     } else {
-                        Log.d("tags", "No internet")
+                        val forecast: FullForecast? = model.getForecastFromDb(location)
+                        if (forecast != null)
+                            view?.setData(forecast)
                     }
                 }, {
                     Log.d("tags", it.message)
