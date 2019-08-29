@@ -22,6 +22,7 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
     }
 
     fun onCreate(location: String) {
+        view?.showProgressBar()
         disposables.add(
             hasInternetConnection().subscribe(
                 {
@@ -42,10 +43,13 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                             ))
                     } else {
                         val forecast: FullForecast? = model.getForecastFromDb(location)
-                        if (forecast != null)
+                        if (forecast != null) {
                             view?.setData(forecast)
+                            view?.showError("No internet connection. The forecast is not updated from last time")
+                        }
                         else
                             view?.showError("We don not have latest forecast for this place")
+                        view?.enableProgressBar()
                     }
                 }, {
                     Log.d("tags", it.message)
