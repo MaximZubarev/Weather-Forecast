@@ -40,9 +40,6 @@ public class DbManager {
         if (u == 0) {
             u = db.insertWithOnConflict("weather", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
         }
-        System.out.println("----------------------------------");
-        System.out.println(u);
-        System.out.println("----------------------------------");
     }
 
     public String getForecast(String city) {
