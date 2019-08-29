@@ -23,11 +23,10 @@ class MainActivityModel(val context: Context) {
     }
 
     fun get(location: String): Observable<FullForecast> {
-        var value = ""
-        if (getCity() == null)
-            value = location
+        val value = if (getCity() == null)
+            location
         else
-            value = getCity()
+            getCity()!!
 
         return Observable.zip(
             getWeatherNow(value),
@@ -36,7 +35,7 @@ class MainActivityModel(val context: Context) {
         )
     }
 
-    private fun getCity(): String {
+    private fun getCity(): String? {
         return SavePref.getInstance(context).city
     }
 }
