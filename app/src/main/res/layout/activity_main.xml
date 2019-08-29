@@ -6,13 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:id="@+id/mainLayout"
         tools:context=".MainActivity">
-
-    <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     <RelativeLayout
             android:id="@+id/forecastNow"
@@ -22,6 +17,14 @@
             android:paddingStart="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:indeterminateTint="@android:color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         <TextView
                 android:id="@+id/city"
@@ -144,6 +147,15 @@
                 android:layout_alignStart="@id/minTemp"
                 style="@style/DescpTextViewMarginTop"
         />
+
+        <TextView
+                android:id="@+id/errorTv"
+                android:text="@string/error_inet"
+                style="@style/DescpTextView"
+                android:gravity="center"
+                android:layout_below="@id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

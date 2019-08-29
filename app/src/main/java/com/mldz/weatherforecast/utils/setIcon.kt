@@ -1,8 +1,7 @@
-package com.mldz.weatherforecast
+package com.mldz.weatherforecast.utils
 
 import android.content.Context
-import android.graphics.Typeface
-import kotlinx.android.synthetic.main.activity_main.*
+import com.mldz.weatherforecast.R
 import java.util.*
 
 /**
