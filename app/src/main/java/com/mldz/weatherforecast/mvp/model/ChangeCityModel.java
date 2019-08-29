@@ -36,7 +36,7 @@ public class ChangeCityModel {
             public List<String> call() throws Exception {
                 List<String> result = new ArrayList<>();
 
-                Cursor c = db.query("mytable", null, null, null, null, null, null);
+                Cursor c = db.query("cities", null, null, null, null, null, null);
 
                 if (c.moveToFirst()) {
                     int idCol = c.getColumnIndex("id");
@@ -74,6 +74,6 @@ public class ChangeCityModel {
     public long addCity(String name) {
         ContentValues cv = new ContentValues();
         cv.put("city", name);
-        return db.insert("mytable", null, cv);
+        return db.insert("cities", null, cv);
     }
 }

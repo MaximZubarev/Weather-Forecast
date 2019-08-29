@@ -15,13 +15,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table mytable ("
+        db.execSQL("create table cities ("
                 + "id integer primary key autoincrement,"
                 + "city text" + ");");
 
-        db.execSQL("insert into mytable (city) values ('london')");
-        db.execSQL("insert into mytable (city) values ('moscow')");
-        db.execSQL("insert into mytable (city) values ('madrid')");
+        db.execSQL("insert into cities (city) values ('london')");
+        db.execSQL("insert into cities (city) values ('moscow')");
+        db.execSQL("insert into cities (city) values ('madrid')");
     }
 
     @Override
