@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,13 +17,13 @@ import com.mldz.weatherforecast.mvp.view.MainActivityView
 import com.mldz.weatherforecast.utils.model.Forecast
 import com.mldz.weatherforecast.utils.model.ForecastDays
 import com.mldz.weatherforecast.utils.model.FullForecast
-import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.mldz.weatherforecast.utils.getIcon
 
 class MainActivity : AppCompatActivity(), MainActivityView {
     private var presenter: MainActivityPresenter? = null
@@ -63,7 +62,12 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         val customFont = Typeface.createFromAsset(assets, "fonts/weather.ttf")
         image.typeface = customFont
-        image.text = getIcon(forecast.weather[0].id, forecast.sys.sunrise * 1000, forecast.sys.sunset * 1000, this)
+        image.text = getIcon(
+            forecast.weather[0].id,
+            forecast.sys.sunrise * 1000,
+            forecast.sys.sunset * 1000,
+            this
+        )
 
         maxTemp.text = "Max temp: ${forecast.main.temp_max.toInt()}°"
         minTemp.text = "Min temp: ${forecast.main.temp_min.toInt()}°"

@@ -1,21 +1,13 @@
 package com.mldz.weatherforecast.adapter
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.mldz.weatherforecast.MainActivity
 import com.mldz.weatherforecast.R
-import com.mldz.weatherforecast.getIcon
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
+import com.mldz.weatherforecast.utils.getIcon
 import java.text.SimpleDateFormat
 import java.util.*
 import com.mldz.weatherforecast.utils.model.List as ForecastList
@@ -52,7 +44,12 @@ class ForecastAdapter(private val items: List<ForecastList>):
 
             val customFont = Typeface.createFromAsset(itemView.context.assets, "fonts/weather.ttf")
             icon.typeface = customFont
-            icon.text = getIcon(list.weather[0].id, list.dt * 1000, list.dt * 1000, itemView.context)
+            icon.text = getIcon(
+                list.weather[0].id,
+                list.dt * 1000,
+                list.dt * 1000,
+                itemView.context
+            )
         }
     }
 }

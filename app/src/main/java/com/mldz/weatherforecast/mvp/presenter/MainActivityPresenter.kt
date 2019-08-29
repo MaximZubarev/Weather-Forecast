@@ -3,6 +3,7 @@ package com.mldz.weatherforecast.mvp.presenter
 import android.util.Log
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.view.MainActivityView
+import com.mldz.weatherforecast.utils.hasInternetConnection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,19 +20,29 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
     }
 
     fun onCreate(location: String) {
-        disposables.add(model.get(location)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-            {
-                view?.setData(it)
-                print(it.forecast.clouds.all)
-            }, {
-                e -> Log.d("logs", "onError: ${e.message}")
-                view?.enableProgressBar()
-            }, {
-                view?.enableProgressBar()
-            }
+        disposables.add(
+            hasInternetConnection().subscribe(
+                {
+                    if (it) {
+                        disposables.add(model.get(location)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                { forecast ->
+                                    view?.setData(forecast)
+                                }, {
+                                    e -> Log.d("logs", "onError: ${e.message}")
+                                    view?.enableProgressBar()
+                                }, {
+                                    view?.enableProgressBar()
+                                }
+                            ))
+                    } else {
+                        Log.d("tags", "No internet")
+                    }
+                }, {
+                    Log.d("tags", it.message)
+                }
         ))
     }
 
