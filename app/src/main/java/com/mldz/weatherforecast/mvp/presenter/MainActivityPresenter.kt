@@ -44,6 +44,8 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                         val forecast: FullForecast? = model.getForecastFromDb(location)
                         if (forecast != null)
                             view?.setData(forecast)
+                        else
+                            view?.showError("We don not have latest forecast for this place")
                     }
                 }, {
                     Log.d("tags", it.message)

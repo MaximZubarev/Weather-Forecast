@@ -9,4 +9,5 @@ interface MainActivityView {
     fun setData(fullForecast: FullForecast)
     fun showProgressBar()
     fun enableProgressBar()
+    fun showError(text: String)
 }

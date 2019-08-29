@@ -22,7 +22,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.RelativeLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.mldz.weatherforecast.utils.getIcon
 
 class MainActivity : AppCompatActivity(), MainActivityView {
@@ -112,6 +114,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         val city: String? = data?.getStringExtra("city")
         if (city != null)
             presenter?.onCreate(city)
@@ -120,6 +123,10 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun showError(text: String) {
+        Snackbar.make(mainLayout, text, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
