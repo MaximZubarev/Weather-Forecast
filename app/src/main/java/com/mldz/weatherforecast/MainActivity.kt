@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
         supportActionBar?.elevation = 0.0f
         showProgressBar()
+        showTextError(false)
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
@@ -127,6 +128,13 @@ class MainActivity : AppCompatActivity(), MainActivityView {
 
     override fun showError(text: String) {
         Snackbar.make(mainLayout, text, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showTextError(flag: Boolean) {
+        if (flag)
+            errorTv.visibility = View.VISIBLE
+        else
+            errorTv.visibility = View.GONE
     }
 
     override fun onDestroy() {

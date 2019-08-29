@@ -37,8 +37,10 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                                 }, {
                                     e -> Log.d("logs", "onError: ${e.message}")
                                     view?.enableProgressBar()
+                                    view?.showTextError(false)
                                 }, {
                                     view?.enableProgressBar()
+                                    view?.showTextError(false)
                                 }
                             ))
                     } else {
@@ -46,9 +48,12 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                         if (forecast != null) {
                             view?.setData(forecast)
                             view?.showError("No internet connection. The forecast is not updated from last time")
+                            view?.showTextError(false)
                         }
-                        else
+                        else {
                             view?.showError("We don not have latest forecast for this place")
+                            view?.showTextError(true)
+                        }
                         view?.enableProgressBar()
                     }
                 }, {

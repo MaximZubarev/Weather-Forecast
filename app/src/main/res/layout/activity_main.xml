@@ -148,6 +148,15 @@
                 style="@style/DescpTextViewMarginTop"
         />
 
+        <TextView
+                android:id="@+id/errorTv"
+                android:text="@string/error_inet"
+                style="@style/DescpTextView"
+                android:gravity="center"
+                android:layout_below="@id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

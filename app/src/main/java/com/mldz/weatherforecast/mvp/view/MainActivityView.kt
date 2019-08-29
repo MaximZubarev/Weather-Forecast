@@ -10,4 +10,5 @@ interface MainActivityView {
     fun showProgressBar()
     fun enableProgressBar()
     fun showError(text: String)
+    fun showTextError(flag: Boolean)
 }

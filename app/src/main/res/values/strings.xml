@@ -12,4 +12,6 @@
 
     <string name="change_city">Change city</string>
     <string name="ok">OK</string>
+
+    <string name="error_inet">No internet connection.\nTry later</string>
 </resources>
