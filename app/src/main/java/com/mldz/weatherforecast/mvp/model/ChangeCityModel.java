@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.mldz.weatherforecast.SavePref;
 import com.mldz.weatherforecast.db.DbHelper;
+import com.mldz.weatherforecast.db.DbManager;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -34,21 +35,7 @@ public class ChangeCityModel {
         return new Callable<List<String>>() {
             @Override
             public List<String> call() throws Exception {
-                List<String> result = new ArrayList<>();
-
-                Cursor c = db.query("mytable", null, null, null, null, null, null);
-
-                if (c.moveToFirst()) {
-                    int idCol = c.getColumnIndex("id");
-                    int cityCol = c.getColumnIndex("city");
-
-                    do {
-                        result.add(c.getString(cityCol));
-                    } while (c.moveToNext());
-                }
-                c.close();
-                db.close();
-                return result;
+                return DbManager.getInstance(context).getCities();
             }
         };
     }
@@ -74,6 +61,6 @@ public class ChangeCityModel {
     public long addCity(String name) {
         ContentValues cv = new ContentValues();
         cv.put("city", name);
-        return db.insert("mytable", null, cv);
+        return db.insert("cities", null, cv);
     }
 }

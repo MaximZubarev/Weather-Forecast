@@ -2,6 +2,7 @@ package com.mldz.weatherforecast.mvp.model
 
 import android.content.Context
 import com.mldz.weatherforecast.SavePref
+import com.mldz.weatherforecast.db.DbManager
 import com.mldz.weatherforecast.utils.Api
 import com.mldz.weatherforecast.utils.model.Forecast
 import com.mldz.weatherforecast.utils.model.ForecastDays
@@ -23,11 +24,10 @@ class MainActivityModel(val context: Context) {
     }
 
     fun get(location: String): Observable<FullForecast> {
-        var value = ""
-        if (getCity() == null)
-            value = location
+        val value = if (getCity() == null)
+            location
         else
-            value = getCity()
+            getCity()!!
 
         return Observable.zip(
             getWeatherNow(value),
@@ -36,7 +36,15 @@ class MainActivityModel(val context: Context) {
         )
     }
 
-    private fun getCity(): String {
+    private fun getCity(): String? {
         return SavePref.getInstance(context).city
+    }
+
+    fun saveToBd(forecast: FullForecast, city: String) {
+        DbManager.getInstance(context).saveForecast(city, forecast)
+    }
+
+    fun getForecastFromDb(city: String): Observable<String> {
+        return Observable.just(DbManager.getInstance(context).getForecast(city))
     }
 }
