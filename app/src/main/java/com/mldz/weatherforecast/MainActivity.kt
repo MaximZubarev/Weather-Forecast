@@ -54,45 +54,70 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         presenter?.onCreate(location)
     }
 
-    override fun setData(fullForecast: FullForecast) {
-        setDataNow(fullForecast.forecast)
-        setDataDays(fullForecast.forecastDays)
+    override fun setData(fullForecast: FullForecast?) {
+        if (fullForecast != null) {
+            setDataNow(fullForecast.forecast)
+            setDataDays(fullForecast.forecastDays)
+        } else {
+            setDataNow()
+            setDataDays()
+        }
     }
 
-    private fun setDataNow(forecast: Forecast) {
-        city.text = forecast.name
-        temp.text = "${forecast.main.temp.toInt()}°"
+    private fun setDataNow(forecast: Forecast? = null) {
+        if (forecast != null) {
+            city.text = forecast.name
+            temp.text = "${forecast.main.temp.toInt()}°"
 
-        val customFont = Typeface.createFromAsset(assets, "fonts/weather.ttf")
-        image.typeface = customFont
-        image.text = getIcon(
-            forecast.weather[0].id,
-            forecast.sys.sunrise * 1000,
-            forecast.sys.sunset * 1000,
-            this
-        )
+            val customFont = Typeface.createFromAsset(assets, "fonts/weather.ttf")
+            image.typeface = customFont
+            image.text = getIcon(
+                forecast.weather[0].id,
+                forecast.sys.sunrise * 1000,
+                forecast.sys.sunset * 1000,
+                this
+            )
 
-        maxTemp.text = "Max temp: ${forecast.main.temp_max.toInt()}°"
-        minTemp.text = "Min temp: ${forecast.main.temp_min.toInt()}°"
+            maxTemp.text = "Max temp: ${forecast.main.temp_max.toInt()}°"
+            minTemp.text = "Min temp: ${forecast.main.temp_min.toInt()}°"
 
-        description.text = forecast.weather[0].description.capitalize()
+            description.text = forecast.weather[0].description.capitalize()
 
-        pressure.text = "Pressure: ${forecast.main.pressure}hPa"
-        humidity.text = "Humidity: ${forecast.main.humidity}%"
+            pressure.text = "Pressure: ${forecast.main.pressure}hPa"
+            humidity.text = "Humidity: ${forecast.main.humidity}%"
 
-        wind.text = "Wind speed: ${forecast.wind.speed}m/s"
-        cloud.text = "Cloudiness: ${forecast.clouds.all}%"
+            wind.text = "Wind speed: ${forecast.wind.speed}m/s"
+            cloud.text = "Cloudiness: ${forecast.clouds.all}%"
 
-        val sunriseDate = Date(forecast.sys.sunrise * 1000)
-        val sunsetDate = Date(forecast.sys.sunset * 1000)
-        val format = SimpleDateFormat("HH:mm", Locale.ENGLISH)
-        sunrise.text = "Sunrise: ${format.format(sunriseDate)}"
-        sunset.text = "Sunset: ${format.format(sunsetDate)}"
+            val sunriseDate = Date(forecast.sys.sunrise * 1000)
+            val sunsetDate = Date(forecast.sys.sunset * 1000)
+            val format = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+            sunrise.text = "Sunrise: ${format.format(sunriseDate)}"
+            sunset.text = "Sunset: ${format.format(sunsetDate)}"
+        } else {
+            city.text = null
+            temp.text = null
+            image.typeface = null
+            image.text = null
+            maxTemp.text = null
+            minTemp.text = null
+            description.text = null
+            pressure.text = null
+            humidity.text = null
+            wind.text = null
+            cloud.text = null
+            sunrise.text = null
+            sunset.text = null
+        }
     }
 
-    private fun setDataDays(forecast: ForecastDays) {
-        adapter = ForecastAdapter(forecast.list)
-        recyclerView.adapter = adapter
+    private fun setDataDays(forecast: ForecastDays? = null) {
+        if (forecast != null) {
+            adapter = ForecastAdapter(forecast.list)
+            recyclerView.adapter = adapter
+        } else {
+            recyclerView.adapter = null
+        }
     }
 
     override fun showProgressBar() {

@@ -1,6 +1,7 @@
 package com.mldz.weatherforecast.mvp.presenter
 
 import android.util.Log
+import androidx.annotation.Nullable
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.view.MainActivityView
 import com.mldz.weatherforecast.utils.hasInternetConnection
@@ -52,6 +53,7 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                         }
                         else {
                             view?.showError("We don not have latest forecast for this place")
+                            view?.setData()
                             view?.showTextError(true)
                         }
                         view?.enableProgressBar()
