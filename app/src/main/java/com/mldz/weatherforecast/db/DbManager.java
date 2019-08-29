@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.mldz.weatherforecast.utils.model.FullForecast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +52,18 @@ public class DbManager {
             }
             return result;
         }
+    }
+
+    public List<String> getCities() {
+        List<String> result = new ArrayList<>();
+        Cursor c = db.query("cities", null, null, null, null, null, null);
+        if (c.moveToFirst()) {
+            int cityCol = c.getColumnIndex("city");
+            do {
+                result.add(c.getString(cityCol));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
     }
 }
