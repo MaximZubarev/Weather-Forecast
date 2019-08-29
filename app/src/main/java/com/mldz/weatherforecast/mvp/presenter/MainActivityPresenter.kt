@@ -2,6 +2,7 @@ package com.mldz.weatherforecast.mvp.presenter
 
 import android.util.Log
 import androidx.annotation.Nullable
+import com.google.gson.Gson
 import com.mldz.weatherforecast.mvp.model.MainActivityModel
 import com.mldz.weatherforecast.mvp.view.MainActivityView
 import com.mldz.weatherforecast.utils.hasInternetConnection
@@ -10,6 +11,7 @@ import com.mldz.weatherforecast.utils.model.FullForecast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.function.BiFunction
 
 
 /**
@@ -45,18 +47,24 @@ class MainActivityPresenter(private var model: MainActivityModel, private var di
                                 }
                             ))
                     } else {
-                        val forecast: FullForecast? = model.getForecastFromDb(location)
-                        if (forecast != null) {
-                            view?.setData(forecast)
-                            view?.showError("No internet connection. The forecast is not updated from last time")
-                            view?.showTextError(false)
-                        }
-                        else {
-                            view?.showError("We don not have latest forecast for this place")
-                            view?.setData()
-                            view?.showTextError(true)
-                        }
-                        view?.enableProgressBar()
+                        val gson = Gson()
+                        disposables.add(model.getForecastFromDb(location)
+                            .subscribeOn(Schedulers.io())
+                            .map{ s -> gson.fromJson(s, FullForecast::class.java)}
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ forecast ->
+                                view?.setData(forecast)
+                                view?.showError("No internet connection. The forecast is not updated from last time")
+                                view?.showTextError(false)
+                            }, {
+                                e -> Log.d("logs", "onError: ${e.message}")
+                                view?.showError("We don not have latest forecast for this place")
+                                view?.setData()
+                                view?.showTextError(true)
+                                view?.enableProgressBar()
+                            }, {
+                                view?.enableProgressBar()
+                            }))
                     }
                 }, {
                     Log.d("tags", it.message)

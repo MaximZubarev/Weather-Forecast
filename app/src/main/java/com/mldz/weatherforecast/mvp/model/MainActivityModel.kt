@@ -1,11 +1,7 @@
 package com.mldz.weatherforecast.mvp.model
 
-import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import com.google.gson.Gson
 import com.mldz.weatherforecast.SavePref
-import com.mldz.weatherforecast.db.DbHelper
 import com.mldz.weatherforecast.db.DbManager
 import com.mldz.weatherforecast.utils.Api
 import com.mldz.weatherforecast.utils.model.Forecast
@@ -19,9 +15,6 @@ Created by Maxim Zubarev on 2019-08-23.
  */
 
 class MainActivityModel(val context: Context) {
-    private var dbHelper: DbHelper? = null
-    private var db: SQLiteDatabase? = null
-
     private fun getWeatherNow(location: String): Observable<Forecast> {
         return Api.create().getWeatherNow(location)
     }
@@ -51,12 +44,7 @@ class MainActivityModel(val context: Context) {
         DbManager.getInstance(context).saveForecast(city, forecast)
     }
 
-    fun getForecastFromDb(city: String): FullForecast? {
-        val gson = Gson()
-        val result: String = DbManager.getInstance(context).getForecast(city)
-        return if (result != "")
-            gson.fromJson(result, FullForecast::class.java)
-        else
-            null
+    fun getForecastFromDb(city: String): Observable<String> {
+        return Observable.just(DbManager.getInstance(context).getForecast(city))
     }
 }
